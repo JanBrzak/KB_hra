@@ -3,133 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <title>Interactive Map</title>
-  <style>
-    body {
-      background: #111;
-      color: #5a5050; /* default text color */
-      font-family: monospace;
-      white-space: pre;
-    }
-    .player { color: lime; font-weight: bold; }
-    .block { color: rgb(211, 201, 201); }
-    .chest { color: rgb(70, 70, 255); font-weight: bold; }
-  </style>
+  <link rel="stylesheet" href="../styles/style.css">
 </head>
 <body>
+      <!-- Navbar with stats -->
+  <div id="navbar">
+    <span>Hydration: <span id="stat-hydration">60</span>/60</span>
+    <span>Food: <span id="stat-food">100</span>/100</span>
+    <span>Money: $<span id="stat-money">0</span></span>
+    <span>Stress: <span id="stat-stress">0</span>%</span>
+    <span>Time: <span id="stat-time">08:00</span></span>
+  </div>
   <pre id="map"></pre>
   <div id="menu"></div>
 
-  <script>
-      let map = [
-      "             ◼    ◼        ◼◼◼                                ", 
-      "             ◼    ◼        ◼    ◼                            ",
-      "             ◼    ◼        ◼     ◼                           ",   
-      "             ◼◼◼◼◼       ◼      ◼                      ", 
-      "             ◼    ◼        ◼     ◼                               ", 
-      "             ◼    ◼        ◼    ◼                            ", 
-      "             ◼    ◼        ◼◼◼                            ", 
-      "############################################################",
-      "#                                 |˄|              |D|     #",
-      "#     #####  #####                                         #",
-      "#     C|◧#   #◨|Ↄ                                         #",
-      "#     #####  #####                                         #",
-      "#                                                          #",
-      "#     #####  #####                                         #",
-      "#     C|◧#   #◨|Ↄ                                         #",
-      "#     #####  #####                                         #",
-      "#                                                          #",
-      "#     #####  #####                                         #",
-      "#     C|◧#   #◨|Ↄ                                         #",
-      "#     #####  #####                                         #",
-      "#                                                          #",
-      "#                                                      |D| #",
-      "#     #####  #####                                         #",
-      "#     C|▯#  #▯|Ↄ                                          #",
-      "#     #####  #####                                         #",
-      "#                                                          #",
-      "#     #####  #####                                         #",
-      "#     C|▯#  #▯|Ↄ                                          #",
-      "#     #####  #####                                         #",
-      "#                                                          #",
-      "#     #####  #####                                         #",
-      "#     C|▯#  #▯|Ↄ                                          #",
-      "#     #####  #####                                         #",
-      "#   ####                                                   #",
-      "#        ####                                              #",
-      "#                                                      |D| #",
-      "############################################################"
-    ].map(r => r.split(""));
 
-    let player = { x: 1, y: 10 };
-    const walkable = [" ", "C","Ↄ","D"];
 
-    // Define actions for tiles
-    const tileActions = {
-      "C": () => {
-        const menu = document.getElementById("menu");
-        menu.style.display = "block";
-        menu.innerHTML = "<h3>Práce</h3><p>|Pracovat</p><p>|Flákat se</p><p>|Odejít</p>";
-      },
-      "Ↄ": () => {
-        const menu = document.getElementById("menu");
-        menu.style.display = "block";
-        menu.innerHTML = "<h3>Práce</h3><p>|Pracovat</p><p>|Flákat se</p><p>|Odejít</p>";
-      }
-      // you can add more: "D": () => { ... }, "|" : () => { ... }
-    };
 
-    function draw() {
-      let out = "";
-      for (let y = 0; y < map.length; y++) {
-        for (let x = 0; x < map[y].length; x++) {
-          if (x === player.x && y === player.y) {
-            out += `<span class="player">O</span>`;
-          } else {
-            const ch = map[y][x];
-            if (ch === "C" || ch ==="Ↄ") out += `<span class="chest">${ch}</span>`;
-            else if (ch === "◧" || ch === "◨" || ch === "▯") out += `<span class="block">${ch}</span>`;
-            else out += ch;
-          }
-        }
-        out += "\n";
-      }
-      document.getElementById("map").innerHTML = out;
-    }
-
-    function move(dx, dy) {
-  const nx = player.x + dx;
-  const ny = player.y + dy;
-
-  if (ny < 0 || ny >= map.length || nx < 0 || nx >= map[ny].length) return;
-
-  const tile = map[ny][nx];
-
-  if (walkable.includes(tile)) {
-    player.x = nx;
-    player.y = ny;
-    draw();
-
-    const menu = document.getElementById("menu");
-
-    // Show menu only when standing on a tile with an action
-    if (tileActions[tile]) {
-      menu.style.display = "block";
-      tileActions[tile](); // fill menu content
-    } else {
-      menu.style.display = "none";
-      menu.innerHTML = ""; // hide menu when stepping off
-    }
-  }
-}
-
-    document.addEventListener("keydown", e => {
-      if (e.key === "ArrowUp" || e.key === "w") move(0, -1);
-      if (e.key === "ArrowDown" || e.key === "s") move(0, 1);
-      if (e.key === "ArrowLeft" || e.key === "a") move(-1, 0);
-      if (e.key === "ArrowRight" || e.key === "d") move(1, 0);
-    });
-
-    draw();
-  </script>
+  <!-- Game and side panels -->
+  <div id="game-container">
+    <pre id="map"></pre>
+    <div>
+      <div id="menu"></div>
+      <div id="inventory"><h3>Inventory</h3></div>
+    </div>
+  </div>
+ <script src="../logic/game.js"></script>
+  <script src="../logic/stats.js"></script>
+  
 </body>
 </html>
