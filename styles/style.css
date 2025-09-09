@@ -1,0 +1,45 @@
+body {
+  background: #111;
+  color: #5a5050; /* default text color */
+  font-family: monospace;
+  white-space: pre;
+   flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.player { color: lime; font-weight: bold; }
+.block { color: rgb(211, 201, 201); }
+.chest { color: rgb(70, 70, 255); font-weight: bold; }
+.door { color: yellow; font-weight: bold; }
+
+#menu {
+  width: 300px;
+  background: #222;
+  padding: 10px;
+  display: none;
+  color: #fff;
+}
+#navbar {
+  background: #222;
+  padding: 10px;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+#game-container {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  padding: 10px;
+}
+#menu, #inventory {
+  width: 300px;
+  background: #222;
+  padding: 10px;
+  color: #fff;
+}
+#inventory {
+  display: block; /* empty panel for now */
+}
