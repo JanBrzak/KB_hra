@@ -19,6 +19,16 @@ function updateStatsDisplay() {
   const h = stats.hours.toString().padStart(2, "0");
   const m = stats.minutes.toString().padStart(2, "0");
   document.getElementById("stat-time").textContent = `${h}:${m}`;
+
+  // Show player coordinates in the navbar
+  let coords = document.getElementById("stat-coords");
+  if (!coords) {
+    coords = document.createElement("span");
+    coords.id = "stat-coords";
+    document.getElementById("navbar").appendChild(document.createTextNode(" | Coordinates: "));
+    document.getElementById("navbar").appendChild(coords);
+  }
+  coords.textContent = `${player.x},${player.y}`;
 }
 
 // Advance time every second (1 second = 1 minute in game)

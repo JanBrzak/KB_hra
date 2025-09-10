@@ -12,6 +12,8 @@ body {
 .block { color: rgb(211, 201, 201); }
 .chest { color: rgb(70, 70, 255); font-weight: bold; }
 .door { color: yellow; font-weight: bold; }
+.coworker { color:rgb(225, 0, 255); font-weight: bold; }
+.boss { color:red; font-weight: bold; }
 
 #menu {
   width: 300px;
@@ -42,4 +44,18 @@ body {
 }
 #inventory {
   display: block; /* empty panel for now */
+}
+#menu button {
+  display: block;
+  width: 100%;
+  margin: 5px 0;
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 5px;
+  cursor: pointer;
+}
+
+#menu button:hover {
+  background: #555;
 }
